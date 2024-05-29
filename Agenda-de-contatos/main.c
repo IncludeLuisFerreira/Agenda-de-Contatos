@@ -2,11 +2,12 @@
 
 int main(){
     Lista lista;
-    Contato *aux;
+    Contato *aux = NULL;
     int user_int, user_pos;
     char user_string[MAX_NAME];
     initLista(&lista);
 
+    setlocale(LC_ALL, "Portuguese_Brazil");
     do
     {
         printf("1-Inserir na lista\n2-Remover da lista\n3-Imprimir a lista\n4-Buscar contato\n5-Editar contato\n6-Sair\n: ");
@@ -17,7 +18,10 @@ int main(){
         case 1:
             printf("Digite a posicao: ");
             scanf("%d", &user_pos);
-            insert(&lista, lerContato(), user_pos);
+            if (valid_position(user_pos, lista.TAM))
+                insert(&lista, lerContato(), user_pos);
+            else
+                printf("Posicao invalida.\n");
             break;
         case 2:
             printf("Digite a posicao: ");
@@ -38,7 +42,10 @@ int main(){
         case 5:
             printf("Digite a posicao: ");
             scanf("%d", &user_pos);
-            editarContato(&lista, user_pos);
+            if (valid_position(user_pos, lista.TAM - 1))
+                editarContato(&lista, user_pos);
+            else
+                printf("Posicao invalida.\n");
             break;
         default:
             if (user_int != 6)
@@ -47,5 +54,7 @@ int main(){
         }
     } while (user_int != 6);
 
+    safe_free(&lista, &aux);
+    printf("Executado com sucesso.\n");
     return 0;
 }
