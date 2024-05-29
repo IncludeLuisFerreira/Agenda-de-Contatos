@@ -288,6 +288,7 @@ Contato* busca(Lista *lista, const char nome[50]){
         }
         aux = aux->proximo;
     }
+    return NULL;
 }
 
 void memoryContato(Lista *lista){       // erro ao salvar ddd e telefone 0 e 1.
